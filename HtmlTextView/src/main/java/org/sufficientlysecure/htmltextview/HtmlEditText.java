@@ -17,14 +17,22 @@
 package org.sufficientlysecure.htmltextview;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RawRes;
+import android.text.Editable;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 
 import java.io.InputStream;
 import java.util.Scanner;
+
+import co.zipperstudios.supporthtml.SupportHtml;
 
 public class HtmlEditText extends JellyBeanSpanFixEditText {
 
@@ -96,14 +104,46 @@ public class HtmlEditText extends JellyBeanSpanFixEditText {
 
         html = htmlTagHandler.overrideTags(html);
 
-        if (removeTrailingWhiteSpace) {
-            setText(removeHtmlBottomPadding(Html.fromHtml(html, imageGetter, htmlTagHandler)));
+        Spanned spannedHtml;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            spannedHtml = Html.fromHtml(html, Html.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH, imageGetter, htmlTagHandler);
         } else {
-            setText(Html.fromHtml(html, imageGetter, htmlTagHandler));
+            spannedHtml = SupportHtml.fromHtml(html, SupportHtml.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH, imageGetter, htmlTagHandler);
+        }
+
+        if (removeTrailingWhiteSpace) {
+            setText(removeHtmlBottomPadding(spannedHtml));
+        } else {
+            setText(spannedHtml);
         }
 
         // make links work
         setMovementMethod(LocalLinkMovementMethod.getInstance());
+
+        setStyleAndUnderlineSpansExclusiveInclusive();
+    }
+
+    private void setStyleAndUnderlineSpansExclusiveInclusive() {
+        Editable editable = getText();
+        StyleSpan[] styleSpans = editable.getSpans(0, editable.length(), StyleSpan.class);
+        for (StyleSpan characterStyleSpan : styleSpans) {
+            int start = editable.getSpanStart(characterStyleSpan);
+            int end = editable.getSpanEnd(characterStyleSpan);
+
+            editable.removeSpan(characterStyleSpan);
+            editable.setSpan(new StyleSpan(characterStyleSpan.getStyle()), start, end,
+                    Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        }
+
+        UnderlineSpan[] underlineSpans = editable.getSpans(0, editable.length(), UnderlineSpan.class);
+        for (UnderlineSpan underlineSpan : underlineSpans) {
+            int start = editable.getSpanStart(underlineSpan);
+            int end = editable.getSpanEnd(underlineSpan);
+
+            editable.removeSpan(underlineSpan);
+            editable.setSpan(new UnderlineSpan(), start, end,
+                    Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        }
     }
 
     /**
