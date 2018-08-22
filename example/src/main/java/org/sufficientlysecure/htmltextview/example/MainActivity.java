@@ -27,7 +27,7 @@ import android.view.View;
 import org.sufficientlysecure.htmltextview.ClickableTableSpan;
 import org.sufficientlysecure.htmltextview.DrawTableLinkSpan;
 import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
-import org.sufficientlysecure.htmltextview.HtmlTextView;
+import org.sufficientlysecure.htmltextview.HtmlEditText;
 
 import static org.sufficientlysecure.htmltextview.example.WebViewActivity.EXTRA_TABLE_HTML;
 
@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        HtmlTextView textView = (HtmlTextView) findViewById(R.id.html_text);
+        HtmlEditText textView = (HtmlEditText) findViewById(R.id.html_text);
 
         //text.setRemoveFromHtmlSpace(false); // default is true
         textView.setClickableTableSpan(new ClickableTableSpanImpl());

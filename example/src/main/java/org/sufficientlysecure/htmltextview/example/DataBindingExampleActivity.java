@@ -23,7 +23,7 @@ import android.support.annotation.Nullable;
 
 import org.sufficientlysecure.htmltextview.DrawTableLinkSpan;
 import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
-import org.sufficientlysecure.htmltextview.HtmlTextView;
+import org.sufficientlysecure.htmltextview.HtmlEditText;
 import org.sufficientlysecure.htmltextview.example.databinding.ActivityDataBindingExampleBinding;
 
 public class DataBindingExampleActivity extends Activity {
@@ -55,11 +55,11 @@ public class DataBindingExampleActivity extends Activity {
      * BindingAdapters only need to be declared once and usable in the whole app.
      * Its better to put all BindingAdapters in a single Java file.
      *
-     * @param view The {@link HtmlTextView}
+     * @param view The {@link HtmlEditText}
      * @param html The value from {@link NewsItem#getHtml()}
      */
     @BindingAdapter({"html"})
-    public static void displayHtml(HtmlTextView view, @Nullable String html) {
+    public static void displayHtml(HtmlEditText view, @Nullable String html) {
         view.setHtml(html, new HtmlResImageGetter(view));
     }
 
@@ -77,7 +77,7 @@ public class DataBindingExampleActivity extends Activity {
         /**
          * This method is called by data binding as we declared app:html="@{newsItem.html}"
          *
-         * @return the HTML string that will be set into {@link HtmlTextView}
+         * @return the HTML string that will be set into {@link HtmlEditText}
          */
         public String getHtml() {
             return html;
