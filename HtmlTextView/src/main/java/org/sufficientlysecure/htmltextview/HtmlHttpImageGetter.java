@@ -135,7 +135,7 @@ public class HtmlHttpImageGetter implements ImageGetter {
         @Override
         protected void onPostExecute(Drawable result) {
             if (result == null) {
-                Log.w(HtmlTextView.TAG, "Drawable result is null! (source: " + source + ")");
+                Log.w(HtmlEditText.TAG, "Drawable result is null! (source: " + source + ")");
                 return;
             }
             final UrlDrawable urlDrawable = drawableReference.get();

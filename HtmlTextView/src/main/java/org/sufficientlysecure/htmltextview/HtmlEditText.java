@@ -26,7 +26,7 @@ import android.util.AttributeSet;
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class HtmlTextView extends JellyBeanSpanFixTextView {
+public class HtmlEditText extends JellyBeanSpanFixEditText {
 
     public static final String TAG = "HtmlTextView";
     public static final boolean DEBUG = false;
@@ -39,27 +39,27 @@ public class HtmlTextView extends JellyBeanSpanFixTextView {
 
     private boolean removeTrailingWhiteSpace = true;
 
-    public HtmlTextView(Context context, AttributeSet attrs, int defStyle) {
+    public HtmlEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    public HtmlTextView(Context context, AttributeSet attrs) {
+    public HtmlEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public HtmlTextView(Context context) {
+    public HtmlEditText(Context context) {
         super(context);
     }
 
     /**
-     * @see org.sufficientlysecure.htmltextview.HtmlTextView#setHtml(int)
+     * @see org.sufficientlysecure.htmltextview.HtmlEditText#setHtml(int)
      */
     public void setHtml(@RawRes int resId) {
         setHtml(resId, null);
     }
 
     /**
-     * @see org.sufficientlysecure.htmltextview.HtmlTextView#setHtml(String)
+     * @see org.sufficientlysecure.htmltextview.HtmlEditText#setHtml(String)
      */
     public void setHtml(@NonNull String html) {
         setHtml(html, null);

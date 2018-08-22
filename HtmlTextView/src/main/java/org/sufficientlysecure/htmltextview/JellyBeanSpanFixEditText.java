@@ -26,7 +26,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.TextView;
+import android.widget.EditText;
 
 /**
  * <p/>
@@ -44,7 +44,7 @@ import android.widget.TextView;
  * <p/>
  * From https://gist.github.com/pyricau/3424004 with fix from comments
  */
-public class JellyBeanSpanFixTextView extends TextView {
+public class JellyBeanSpanFixEditText extends EditText {
 
     private static class FixingResult {
         public final boolean fixed;
@@ -68,15 +68,15 @@ public class JellyBeanSpanFixTextView extends TextView {
         }
     }
 
-    public JellyBeanSpanFixTextView(Context context, AttributeSet attrs, int defStyle) {
+    public JellyBeanSpanFixEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    public JellyBeanSpanFixTextView(Context context, AttributeSet attrs) {
+    public JellyBeanSpanFixEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public JellyBeanSpanFixTextView(Context context) {
+    public JellyBeanSpanFixEditText(Context context) {
         super(context);
     }
 
@@ -98,8 +98,8 @@ public class JellyBeanSpanFixTextView extends TextView {
             SpannableStringBuilder builder = new SpannableStringBuilder(text);
             fixSpannedWithSpaces(builder, widthMeasureSpec, heightMeasureSpec);
         } else {
-            if (HtmlTextView.DEBUG) {
-                Log.d(HtmlTextView.TAG, "The text isn't a Spanned");
+            if (HtmlEditText.DEBUG) {
+                Log.d(HtmlEditText.TAG, "The text isn't a Spanned");
             }
             fallbackToString(widthMeasureSpec, heightMeasureSpec);
         }
@@ -121,9 +121,9 @@ public class JellyBeanSpanFixTextView extends TextView {
             fallbackToString(widthMeasureSpec, heightMeasureSpec);
         }
 
-        if (HtmlTextView.DEBUG) {
+        if (HtmlEditText.DEBUG) {
             long fixDuration = System.currentTimeMillis() - startFix;
-            Log.d(HtmlTextView.TAG, "fixSpannedWithSpaces() duration in ms: " + fixDuration);
+            Log.d(HtmlEditText.TAG, "fixSpannedWithSpaces() duration in ms: " + fixDuration);
         }
     }
 
@@ -153,8 +153,8 @@ public class JellyBeanSpanFixTextView extends TextView {
             } catch (IndexOutOfBoundsException ignored) {
             }
         }
-        if (HtmlTextView.DEBUG) {
-            Log.d(HtmlTextView.TAG, "Could not fix the Spanned by adding spaces around spans");
+        if (HtmlEditText.DEBUG) {
+            Log.d(HtmlEditText.TAG, "Could not fix the Spanned by adding spaces around spans");
         }
         return FixingResult.notFixed();
     }
@@ -204,8 +204,8 @@ public class JellyBeanSpanFixTextView extends TextView {
     }
 
     private void fallbackToString(int widthMeasureSpec, int heightMeasureSpec) {
-        if (HtmlTextView.DEBUG) {
-            Log.d(HtmlTextView.TAG, "Fallback to unspanned text");
+        if (HtmlEditText.DEBUG) {
+            Log.d(HtmlEditText.TAG, "Fallback to unspanned text");
         }
         String fallbackText = getText().toString();
         setTextAndMeasure(fallbackText, widthMeasureSpec, heightMeasureSpec);
