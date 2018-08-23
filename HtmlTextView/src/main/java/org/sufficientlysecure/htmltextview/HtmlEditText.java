@@ -132,7 +132,7 @@ public class HtmlEditText extends JellyBeanSpanFixEditText {
 
             editable.removeSpan(characterStyleSpan);
             editable.setSpan(new StyleSpan(characterStyleSpan.getStyle()), start, end,
-                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                    Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         }
 
         UnderlineSpan[] underlineSpans = editable.getSpans(0, editable.length(), UnderlineSpan.class);
@@ -142,7 +142,7 @@ public class HtmlEditText extends JellyBeanSpanFixEditText {
 
             editable.removeSpan(underlineSpan);
             editable.setSpan(new UnderlineSpan(), start, end,
-                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                    Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         }
     }
 
